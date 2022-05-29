@@ -12,15 +12,36 @@ const App = () => {
     setTimeout(() => {
       axios
         .get(URL)
-      .then(response => setData(response.data));
+        .then(response => setData(response.data));
     }, 2000);
   }, [data]);
-
-  console.log(data);
 
   return (
     <div className="App">
       DevTrak v{appVersion}
+      <table>
+        <caption>Issues</caption>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Project</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(d =>
+            d.issues.map((i, index) =>
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{i.type}</td>
+                <td>{d.project}</td>
+                <td>{i.title}</td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
