@@ -19,7 +19,7 @@ const columns = [
     id: 'project',
     label: 'Project',
     minWidth: 170,
-    align: 'center'
+    align: 'left'
   },
   {
     id: 'title',
