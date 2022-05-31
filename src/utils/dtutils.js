@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
+
 const createData = (closed, number, type, project, title) => {
   return { closed, number, type, project, title };
 }
@@ -15,4 +16,13 @@ const getPriorityColor = (priority) => {
   }
 }
 
-export default { createData, getPriorityColor };
+const getIssueTypeColor = (type) => {
+  switch (type) {
+    case 'bug': return 'crimson';
+    case 'refactor': return 'blueviolet';
+    case 'TODO': return 'darkcyan';
+    default: return 'gray';
+  }
+}
+
+export default { createData, getPriorityColor, getIssueTypeColor };
