@@ -10,7 +10,7 @@ const getPriorityColor = (priority) => {
     case 1: return '#FF0000'; // red
     case 2: return '#FFA500'; // orange
     case 3: return '#FFFF00'; // yellow
-    case 4: return '#008000'; // green
+    case 4: return '#32CD32'; // limegreen
     default: return '#6495ED'; // gray
   }
 }
