@@ -13,7 +13,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import utils from '../utils/dtutils';
 
 const columns = [
-  { id: 'number', label: '#', minWidth: 100 },
+  { id: 'number', label: '#', minWidth: 80 },
   { id: 'type', label: 'Type', minWidth: 100 },
   {
     id: 'project',
@@ -69,7 +69,11 @@ const IssuesTable = ({ rows, page, rowsPerPage, showClosed }) =>
             <TableCell
               key={column.id}
               align={column.id === 'number' ? 'center' : column.align}
-              style={{ minWidth: column.minWidth }}
+              style={{
+                minWidth: column.minWidth,
+                backgroundColor: '#1d3557',
+                color: 'white'
+              }}
             >
               {column.label}
             </TableCell>
