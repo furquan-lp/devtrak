@@ -34,7 +34,7 @@ const Issues = ({ rows }) =>
           {columns.map((column) => (
             <TableCell
               key={column.id}
-              align={column.align}
+              align={column.id === 'number' ? 'center' : column.align}
               style={{ minWidth: column.minWidth }}
             >
               {column.label}
