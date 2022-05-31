@@ -60,7 +60,7 @@ const handleTableValues = (id, value, width) => {
   }
 };
 
-const Issues = ({ rows, showClosed }) =>
+const IssuesTable = ({ rows, page, rowsPerPage, showClosed }) =>
   <TableContainer sx={{ maxHeight: 440 }}>
     <Table stickyHeader aria-label="sticky table">
       <TableHead>
@@ -77,36 +77,74 @@ const Issues = ({ rows, showClosed }) =>
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows.map((row) => {
-          return (
-            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-              {columns.map((column) => {
-                const value = handleTableValues(column.id, row[column.id], column.minWidth);
-                const closed = row['closed'] === undefined ?
-                  false : row['closed'];
-                const priority = row['priority'];
-                if (showClosed || !closed)
-                  return (
-                    <TableCell key={column.id} align={column.align}>
-                      <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        flexWrap: 'wrap'
-                      }}>
-                        {getTableExtras(column.id, closed, priority)}
-                        {column.format && typeof value === 'number'
-                          ? column.format(value)
-                          : value}
-                      </div>
-                    </TableCell>
+        {rows
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((row) => {
+            return (
+              <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                {columns.map((column) => {
+                  const value = handleTableValues(
+                    column.id, row[column.id], column.minWidth
                   );
-              })}
-            </TableRow>
-          );
-        })}
+                  const closed = row['closed'] === undefined ?
+                    false : row['closed'];
+                  const priority = row['priority'];
+                  if (showClosed || !closed)
+                    return (
+                      <TableCell key={column.id} align={column.align}>
+                        <div style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          flexWrap: 'wrap'
+                        }}>
+                          {getTableExtras(column.id, closed, priority)}
+                          {column.format && typeof value === 'number'
+                            ? column.format(value)
+                            : value}
+                        </div>
+                      </TableCell>
+                    );
+                })}
+              </TableRow>
+            );
+          })}
       </TableBody>
     </Table>
   </TableContainer>;
+
+const Issues = ({ rows, showClosed }) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  return (
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <IssuesTable
+        rows={rows}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        showClosed={showClosed}
+      />
+      <TablePagination
+        rowsPerPageOptions={[5, 20, 50]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
+  );
+}
 
 export default Issues;
