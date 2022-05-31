@@ -70,10 +70,17 @@ const Issues = ({ rows, showClosed }) =>
                 if (showClosed || !closed)
                   return (
                     <TableCell key={column.id} align={column.align}>
-                      {getTableExtras(column.id, closed, priority)}
-                      {column.format && typeof value === 'number'
-                        ? column.format(value)
-                        : value}
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                      }}>
+                        {getTableExtras(column.id, closed, priority)}
+                        {column.format && typeof value === 'number'
+                          ? column.format(value)
+                          : value}
+                      </div>
                     </TableCell>
                   );
               })}
