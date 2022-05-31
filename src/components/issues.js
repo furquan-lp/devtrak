@@ -49,8 +49,12 @@ const handleTableValues = (id, value, width) => {
     return <div style={{
       border: '2px solid',
       borderColor: utils.getIssueTypeColor(value),
-      padding: 3, paddingLeft: 6, paddingRight: 6, borderRadius: 8
+      padding: 3, paddingLeft: 6, paddingRight: 6,
+      borderRadius: 8
     }}>{value}</div>;
+  } else if (id === 'project') {
+    return <a href={utils.getRepositoryLink(value)}
+      style={{ color: '#457b9d' }}>{value}</a>;
   } else {
     return value;
   }
