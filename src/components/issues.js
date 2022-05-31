@@ -8,6 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
+import ErrorIcon from '@mui/icons-material/Error';
+
+import utils from '../utils/dtutils';
 
 const columns = [
   { id: 'number', label: '#', minWidth: 100 },
@@ -50,11 +53,15 @@ const Issues = ({ rows, showClosed }) =>
                 const value = row[column.id];
                 const closed = row['closed'] === undefined ?
                   false : row['closed'];
+                const priority = row['priority'];
                 if (showClosed || !closed)
                   return (
                     <TableCell key={column.id} align={column.align}>
                       {column.id === 'number' ?
                         <Checkbox disabled={closed} checked={closed} /> : undefined}
+                      {column.id === 'title' ?
+                        <ErrorIcon sx={{ color: utils.getPriorityColor(priority) }} />
+                        : undefined}
                       {column.format && typeof value === 'number'
                         ? column.format(value)
                         : value}
