@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
+const repoURL = 'https://github.com/furquan-lp/';
 
 const createData = (closed, number, type, project, title) => {
   return { closed, number, type, project, title };
@@ -25,4 +26,8 @@ const getIssueTypeColor = (type) => {
   }
 }
 
-export default { createData, getPriorityColor, getIssueTypeColor };
+const getRepositoryLink = (project) => {
+  return repoURL + project + '.git';
+}
+
+export default { createData, getPriorityColor, getIssueTypeColor, getRepositoryLink };
