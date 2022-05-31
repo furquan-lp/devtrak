@@ -105,6 +105,8 @@ const IssuesTable = ({ rows, page, rowsPerPage, showClosed }) =>
                         </div>
                       </TableCell>
                     );
+                  else
+                    return undefined;
                 })}
               </TableRow>
             );
