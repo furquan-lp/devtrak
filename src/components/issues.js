@@ -26,7 +26,7 @@ const columns = [
   }
 ];
 
-const Issues = ({ rows }) =>
+const Issues = ({ rows, showClosed }) =>
   <TableContainer sx={{ maxHeight: 440 }}>
     <Table stickyHeader aria-label="sticky table">
       <TableHead>
@@ -50,15 +50,16 @@ const Issues = ({ rows }) =>
                 const value = row[column.id];
                 const closed = row['closed'] === undefined ?
                   false : row['closed'];
-                return (
-                  <TableCell key={column.id} align={column.align}>
-                    {column.id === 'number' ?
-                      <Checkbox disabled={closed} checked={closed} /> : undefined}
-                    {column.format && typeof value === 'number'
-                      ? column.format(value)
-                      : value}
-                  </TableCell>
-                );
+                if (showClosed || !closed)
+                  return (
+                    <TableCell key={column.id} align={column.align}>
+                      {column.id === 'number' ?
+                        <Checkbox disabled={closed} checked={closed} /> : undefined}
+                      {column.format && typeof value === 'number'
+                        ? column.format(value)
+                        : value}
+                    </TableCell>
+                  );
               })}
             </TableRow>
           );
