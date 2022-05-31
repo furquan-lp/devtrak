@@ -45,6 +45,12 @@ const getTableExtras = (id, closed, priority) => {
 const handleTableValues = (id, value, width) => {
   if (id === 'title' && value.length > (width - 100)) {
     return value.substring(0, width - 100).trim() + '...';
+  } else if (id === 'type') {
+    return <div style={{
+      border: '2px solid',
+      borderColor: utils.getIssueTypeColor(value),
+      padding: 3, paddingLeft: 6, paddingRight: 6, borderRadius: 8
+    }}>{value}</div>;
   } else {
     return value;
   }
@@ -82,7 +88,7 @@ const Issues = ({ rows, showClosed }) =>
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
-                        flexWrap: 'wrap',
+                        flexWrap: 'wrap'
                       }}>
                         {getTableExtras(column.id, closed, priority)}
                         {column.format && typeof value === 'number'
