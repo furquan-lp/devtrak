@@ -42,6 +42,14 @@ const getTableExtras = (id, closed, priority) => {
     return undefined;
 };
 
+const handleTableValues = (id, value, width) => {
+  if (id === 'title' && value.length > (width - 100)) {
+    return value.substring(0, width - 100).trim() + '...';
+  } else {
+    return value;
+  }
+};
+
 const Issues = ({ rows, showClosed }) =>
   <TableContainer sx={{ maxHeight: 440 }}>
     <Table stickyHeader aria-label="sticky table">
@@ -63,7 +71,7 @@ const Issues = ({ rows, showClosed }) =>
           return (
             <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
               {columns.map((column) => {
-                const value = row[column.id];
+                const value = handleTableValues(column.id, row[column.id], column.minWidth);
                 const closed = row['closed'] === undefined ?
                   false : row['closed'];
                 const priority = row['priority'];
