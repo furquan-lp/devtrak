@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
-import ErrorIcon from '@mui/icons-material/Error';
+import CircleIcon from '@mui/icons-material/Circle';
 
 import utils from '../utils/dtutils';
 
@@ -28,6 +28,19 @@ const columns = [
     align: 'left'
   }
 ];
+
+const getTableExtras = (id, closed, priority) => {
+  if (id === 'number')
+    return (<Checkbox disabled={closed} checked={closed} />);
+  else if (id === 'title')
+    return (
+      <CircleIcon sx={{
+        color: utils.getPriorityColor(priority),
+        marginRight: 1
+      }} fontSize="inherit" />);
+  else
+    return undefined;
+};
 
 const Issues = ({ rows, showClosed }) =>
   <TableContainer sx={{ maxHeight: 440 }}>
@@ -57,11 +70,7 @@ const Issues = ({ rows, showClosed }) =>
                 if (showClosed || !closed)
                   return (
                     <TableCell key={column.id} align={column.align}>
-                      {column.id === 'number' ?
-                        <Checkbox disabled={closed} checked={closed} /> : undefined}
-                      {column.id === 'title' ?
-                        <ErrorIcon sx={{ color: utils.getPriorityColor(priority) }} />
-                        : undefined}
+                      {getTableExtras(column.id, closed, priority)}
                       {column.format && typeof value === 'number'
                         ? column.format(value)
                         : value}
