@@ -1,6 +1,6 @@
 # DevTrack (still in early development)
 
-![]('./screenshot.png')
+![](screenshot.png)
 
 DevTrak is a simple issue/progress tracker built in React with
 [Material UI](https://mui.com/).
