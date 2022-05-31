@@ -19,9 +19,9 @@ const getPriorityColor = (priority) => {
 
 const getIssueTypeColor = (type) => {
   switch (type) {
-    case 'bug': return 'crimson';
-    case 'refactor': return 'blueviolet';
-    case 'TODO': return 'darkcyan';
+    case 'bug': return 'orangered';
+    case 'refactor': return 'orchid';
+    case 'TODO': return 'skyblue';
     default: return 'gray';
   }
 }
