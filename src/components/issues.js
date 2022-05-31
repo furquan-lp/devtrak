@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 
 const columns = [
-  { id: 'number', label: '#', minWidth: 100, align: 'left' },
+  { id: 'number', label: '#', minWidth: 100 },
   { id: 'type', label: 'Type', minWidth: 100 },
   {
     id: 'project',
@@ -50,6 +50,8 @@ const Issues = ({ rows }) =>
                 const value = row[column.id];
                 return (
                   <TableCell key={column.id} align={column.align}>
+                    {column.id === 'number' ?
+                      <Checkbox /> : undefined}
                     {column.format && typeof value === 'number'
                       ? column.format(value)
                       : value}
