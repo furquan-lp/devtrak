@@ -22,6 +22,7 @@ const getIssueTypeColor = (type) => {
     case 'bug': return 'orangered';
     case 'refactor': return 'orchid';
     case 'TODO': return 'skyblue';
+    case 'suggestion': return 'palegreen';
     default: return 'gray';
   }
 }
