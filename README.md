@@ -1,4 +1,4 @@
-# DevTrack (still in early development)
+# DevTrak (still in early development)
 
 ![](screenshot.png)
 
