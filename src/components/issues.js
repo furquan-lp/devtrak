@@ -48,10 +48,12 @@ const Issues = ({ rows }) =>
             <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
               {columns.map((column) => {
                 const value = row[column.id];
+                const closed = row['closed'] === undefined ?
+                  false : row['closed'];
                 return (
                   <TableCell key={column.id} align={column.align}>
                     {column.id === 'number' ?
-                      <Checkbox /> : undefined}
+                      <Checkbox disabled={closed} checked={closed} /> : undefined}
                     {column.format && typeof value === 'number'
                       ? column.format(value)
                       : value}
