@@ -14,8 +14,10 @@ const App = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      services.getProjects().then(data => setData(data));
-    }, 2000);
+      services.getProjects({
+        'X-Master-Key': '$2b$10$pWNGBg9x/gcFna2bGzV2DO.97lv6XCoK35tPfs4e.HlgJAdpZ8aC.'
+      }).then(data => setData(data.record.projects));
+    }, 3000);
   }, [data]);
 
   return (
