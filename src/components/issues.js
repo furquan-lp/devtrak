@@ -12,6 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import CircleIcon from '@mui/icons-material/Circle';
 
 import utils from '../utils/dtutils';
+import services from '../utils/services';
 
 const columns = [
   { id: 'number', label: '#', minWidth: 80 },
@@ -30,9 +31,23 @@ const columns = [
   }
 ];
 
-const getTableExtras = (id, closed, priority) => {
+const toggleClosed = (index, projectId, projects) => {
+  const project = projects.find(p => p.id === projectId);
+  let changedIssues = project.issues.slice();
+  changedIssues[index]['open'] = !changedIssues[index]['open'];
+  const changedProject = { ...project, issues: changedIssues };
+  services.changeProject(changedProject, projectId);
+};
+
+const getToggleClosed = (number, projectId, projects) =>
+  () => toggleClosed(number - 1, projectId, projects);
+
+const getTableExtras = (id, closed, number, projectId, projects, priority) => {
   if (id === 'number')
-    return (<Checkbox disabled={closed} checked={closed} />);
+    return (<Checkbox
+      disabled={closed} checked={closed}
+      onClick={getToggleClosed(number, projectId, projects)}
+    />);
   else if (id === 'title')
     return (
       <Tooltip title={utils.getPriorityString(priority) + " priority"} arrow>
@@ -69,7 +84,7 @@ const handleTableValues = (id, value, width) => {
   }
 };
 
-const IssuesTable = ({ rows, page, rowsPerPage, showClosed }) =>
+const IssuesTable = ({ projects, rows, page, rowsPerPage, showClosed }) =>
   <TableContainer sx={{ maxHeight: 440 }}>
     <Table stickyHeader aria-label="sticky table">
       <TableHead>
@@ -102,6 +117,7 @@ const IssuesTable = ({ rows, page, rowsPerPage, showClosed }) =>
                   const closed = row['closed'] === undefined ?
                     false : row['closed'];
                   const priority = row['priority'];
+                  const projectId = row['pId'];
                   if (showClosed || !closed)
                     return (
                       <TableCell key={column.id} align={column.align}>
@@ -111,7 +127,7 @@ const IssuesTable = ({ rows, page, rowsPerPage, showClosed }) =>
                           alignItems: 'center',
                           flexWrap: 'wrap'
                         }}>
-                          {getTableExtras(column.id, closed, priority)}
+                          {getTableExtras(column.id, closed, row['number'], projectId, projects, priority)}
                           {column.format && typeof value === 'number'
                             ? column.format(value)
                             : value}
@@ -128,7 +144,7 @@ const IssuesTable = ({ rows, page, rowsPerPage, showClosed }) =>
     </Table>
   </TableContainer>;
 
-const Issues = ({ rows, showClosed }) => {
+const Issues = ({ data, rows, showClosed }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -144,6 +160,7 @@ const Issues = ({ rows, showClosed }) => {
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <IssuesTable
+        projects={data}
         rows={rows}
         page={page}
         rowsPerPage={rowsPerPage}
