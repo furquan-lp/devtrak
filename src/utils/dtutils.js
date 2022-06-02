@@ -17,6 +17,17 @@ const getPriorityColor = (priority) => {
   }
 }
 
+const getPriorityString = (priority) => {
+  switch (priority) {
+    case 0: return 'None';
+    case 1: return 'Critical';
+    case 2: return 'High';
+    case 3: return 'Medium';
+    case 4: return 'Low';
+    default: return 'null';
+  }
+}
+
 const getIssueTypeColor = (type) => {
   switch (type) {
     case 'bug': return 'orangered';
@@ -31,4 +42,10 @@ const getRepositoryLink = (project) => {
   return repoURL + project + '.git';
 }
 
-export default { createData, getPriorityColor, getIssueTypeColor, getRepositoryLink };
+export default {
+  createData,
+  getPriorityColor,
+  getPriorityString,
+  getIssueTypeColor,
+  getRepositoryLink
+};
