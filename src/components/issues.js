@@ -35,7 +35,7 @@ const getTableExtras = (id, closed, priority) => {
     return (<Checkbox disabled={closed} checked={closed} />);
   else if (id === 'title')
     return (
-      <Tooltip title="Priority" arrow>
+      <Tooltip title={utils.getPriorityString(priority) + " priority"} arrow>
         <CircleIcon sx={{
           color: utils.getPriorityColor(priority),
           marginRight: 1
@@ -50,15 +50,20 @@ const handleTableValues = (id, value, width) => {
   if (id === 'title' && value.length > (width - 100)) {
     return value.substring(0, width - 100).trim() + '...';
   } else if (id === 'type') {
-    return <div style={{
-      border: '2px solid',
-      borderColor: utils.getIssueTypeColor(value),
-      padding: 3, paddingLeft: 6, paddingRight: 6,
-      borderRadius: 8
-    }}>{value}</div>;
+    return (
+      <div style={{
+        border: '2px solid',
+        borderColor: utils.getIssueTypeColor(value),
+        padding: 3, paddingLeft: 6, paddingRight: 6,
+        borderRadius: 8
+      }}>{value}</div>
+    );
   } else if (id === 'project') {
-    return <a href={utils.getRepositoryLink(value)}
-      style={{ color: '#457b9d' }}>{value}</a>;
+    return (
+      <a href={utils.getRepositoryLink(value)} style={{ color: '#457b9d' }}>
+        {value}
+      </a>
+    );
   } else {
     return value;
   }
