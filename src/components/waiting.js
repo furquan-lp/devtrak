@@ -4,7 +4,7 @@ import Skeleton from '@mui/material/Skeleton';
 
 export default function WaitingPlaceholder() {
   return (
-    <Box sx={{ width: 500, marginLeft: 30, marginTop: 5 }}>
+    <Box sx={{ width: 500, marginLeft: 30, marginTop: 10 }}>
       <Skeleton height={35} sx={{ bgcolor: 'whitesmoke' }} />
       <Skeleton sx={{ bgcolor: 'whitesmoke' }} />
       <Skeleton sx={{ bgcolor: 'whitesmoke' }} />
