@@ -2,8 +2,8 @@ import { createTheme } from '@mui/material/styles';
 
 const repoURL = 'https://github.com/furquan-lp/';
 
-const createData = (closed, number, type, project, priority, title, pId) => {
-  return { closed, number, type, project, priority, title, pId };
+const createData = (closed, number, type, project, priority, title, pIndex) => {
+  return { closed, number, type, project, priority, title, pIndex };
 }
 
 const getPriorityColor = (priority) => {
