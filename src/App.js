@@ -1,23 +1,20 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import Header from './components/header';
 import Issues from './components/issues';
 import WaitingPlaceholder from './components/waiting';
+import services from './utils/services';
 
 import './App.css';
 
 const App = () => {
   const appVersion = require('../package.json').version;
-  const URL = 'http://localhost:3001/projects';
   const [data, setData] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
-      axios
-        .get(URL)
-        .then(response => setData(response.data));
+      services.getProjects().then(data => setData(data));
     }, 2000);
   }, [data]);
 
