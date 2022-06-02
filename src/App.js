@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Header from './components/header';
 import Issues from './components/issues';
+import WaitingPlaceholder from './components/waiting';
 
 import './App.css';
 
@@ -43,7 +44,8 @@ const App = () => {
     <div className="App-wrapper">
       <Header version={appVersion} />
       <div className="App">
-        <Issues rows={rows} showClosed={true} />
+        {rows === undefined ?
+          <WaitingPlaceholder /> : <Issues rows={rows} showClosed={true} />}
       </div>
     </div>
   );
