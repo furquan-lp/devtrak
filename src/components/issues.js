@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
 import CircleIcon from '@mui/icons-material/Circle';
 
 import utils from '../utils/dtutils';
@@ -34,10 +35,13 @@ const getTableExtras = (id, closed, priority) => {
     return (<Checkbox disabled={closed} checked={closed} />);
   else if (id === 'title')
     return (
-      <CircleIcon sx={{
-        color: utils.getPriorityColor(priority),
-        marginRight: 1
-      }} fontSize="inherit" />);
+      <Tooltip title="Priority" arrow>
+        <CircleIcon sx={{
+          color: utils.getPriorityColor(priority),
+          marginRight: 1
+        }} fontSize="inherit" />
+      </Tooltip>
+    );
   else
     return undefined;
 };
