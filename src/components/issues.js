@@ -54,14 +54,11 @@ const toggleClosed = (index, projectId, projects) => {
   services.changeProject(changedProject, projectId);
 };
 
-const getToggleClosed = (number, projectId, projects) =>
-  () => toggleClosed(number - 1, projectId, projects);
-
 const getTableExtras = (id, closed, number, projectId, projects, priority) => {
   if (id === 'number')
     return (<Checkbox
       disabled={closed} checked={closed}
-      onClick={getToggleClosed(number, projectId, projects)}
+      onClick={() => toggleClosed(number - 1, projectId, projects)}
     />);
   else if (id === 'title')
     return (
@@ -142,7 +139,8 @@ const IssuesTable = ({ projects, rows, page, rowsPerPage, showClosed }) =>
                           alignItems: 'center',
                           flexWrap: 'wrap'
                         }}>
-                          {getTableExtras(column.id, closed, row['number'], projectId, projects, priority)}
+                          {getTableExtras(column.id, closed, row['number'],
+                            projectId, projects, priority)}
                           {column.format && typeof value === 'number'
                             ? column.format(value)
                             : value}
