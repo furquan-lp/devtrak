@@ -31,6 +31,21 @@ const columns = [
   }
 ];
 
+const createRows = (data) => {
+  if (data === undefined)
+    return undefined;
+  let rows = [];
+  data.forEach(d =>
+    d.issues.forEach((i, index) => rows.push(
+      utils.createData(
+        !i.open, index + 1, i.type, d.project, i.priority, i.title, d.id
+      )
+    ))
+  );
+  if (rows.length > 0)
+    return rows;
+}
+
 const toggleClosed = (index, projectId, projects) => {
   const project = projects.find(p => p.id === projectId);
   let changedIssues = project.issues.slice();
@@ -144,7 +159,7 @@ const IssuesTable = ({ projects, rows, page, rowsPerPage, showClosed }) =>
     </Table>
   </TableContainer>;
 
-const Issues = ({ data, rows, showClosed }) => {
+const Issues = ({ data, showClosed }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -156,6 +171,8 @@ const Issues = ({ data, rows, showClosed }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const rows = createRows(data);
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
