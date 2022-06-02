@@ -1,7 +1,28 @@
+import * as React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import Header from './components/header';
+import Issues from './components/issues';
+
 import './App.css';
+
+const createData = (closed, number, type, project, priority, title) => {
+  return { closed, number, type, project, priority, title };
+}
+
+const createRows = (data) => {
+  if (data === undefined)
+    return undefined;
+  let rows = [];
+  data.forEach(d =>
+    d.issues.forEach((i, index) => rows.push(
+      createData(i.open, index + 1, i.type, d.project, i.priority, i.title)
+    ))
+  );
+  if (rows.length > 0)
+    return rows;
+}
 
 const App = () => {
   const appVersion = require('../package.json').version;
@@ -16,34 +37,15 @@ const App = () => {
     }, 2000);
   }, [data]);
 
+  const rows = createRows(data);
+
   return (
-    <div className="App">
-      DevTrak v{appVersion}
-      <table>
-        <caption>Issues</caption>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Type</th>
-            <th>Project</th>
-            <th>Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(d =>
-            d.issues.map((i, index) =>
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{i.type}</td>
-                <td>{d.project}</td>
-                <td>{i.title}</td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </table>
+    <div className="App-wrapper">
+      <Header version={appVersion} />
+      <div className="App">
+        <Issues rows={rows} showClosed={true} />
+      </div>
     </div>
   );
-};
-
+}
 export default App;
