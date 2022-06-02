@@ -8,25 +8,6 @@ import WaitingPlaceholder from './components/waiting';
 
 import './App.css';
 
-const createData = (closed, number, type, project, priority, title, pId) => {
-  return { closed, number, type, project, priority, title, pId };
-}
-
-const createRows = (data) => {
-  if (data === undefined)
-    return undefined;
-  let rows = [];
-  data.forEach(d =>
-    d.issues.forEach((i, index) => rows.push(
-      createData(
-        !i.open, index + 1, i.type, d.project, i.priority, i.title, d.id
-      )
-    ))
-  );
-  if (rows.length > 0)
-    return rows;
-}
-
 const App = () => {
   const appVersion = require('../package.json').version;
   const URL = 'http://localhost:3001/projects';
@@ -40,14 +21,12 @@ const App = () => {
     }, 2000);
   }, [data]);
 
-  const rows = createRows(data);
-
   return (
     <div className="App-wrapper">
       <Header version={appVersion} />
       <div className="App">
-        {rows === undefined ?
-          <WaitingPlaceholder /> : <Issues data={data} rows={rows} showClosed={true} />}
+        {data === undefined || data.length === 0 ?
+          <WaitingPlaceholder /> : <Issues data={data} showClosed={true} />}
       </div>
     </div>
   );
