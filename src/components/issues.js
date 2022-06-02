@@ -35,10 +35,10 @@ const createRows = (data) => {
   if (data === undefined)
     return undefined;
   let rows = [];
-  data.forEach(d =>
+  data.forEach((d, dIndex) =>
     d.issues.forEach((i, index) => rows.push(
       utils.createData(
-        !i.open, index + 1, i.type, d.project, i.priority, i.title, d.id
+        !i.open, index + 1, i.type, d.project, i.priority, i.title, dIndex
       )
     ))
   );
@@ -46,32 +46,39 @@ const createRows = (data) => {
     return rows;
 }
 
-const toggleClosed = (index, projectId, projects) => {
-  const project = projects.find(p => p.id === projectId);
+const toggleClosed = (index, projectIndex, projects) => {
+  const project = projects[projectIndex];
   let changedIssues = project.issues.slice();
   changedIssues[index]['open'] = !changedIssues[index]['open'];
   const changedProject = { ...project, issues: changedIssues };
-  services.changeProject(changedProject, projectId);
+  let changedProjects = projects.slice();
+  changedProjects[projectIndex] = changedProject;
+  const changedData = { "projects": changedProjects };
+  services.changeData(changedData, {
+    'Content-Type': 'application/json',
+    'X-Master-Key': '$2b$10$pWNGBg9x/gcFna2bGzV2DO.97lv6XCoK35tPfs4e.HlgJAdpZ8aC.'
+  });
 };
 
-const getTableExtras = (id, closed, number, projectId, projects, priority) => {
-  if (id === 'number')
-    return (<Checkbox
-      disabled={closed} checked={closed}
-      onClick={() => toggleClosed(number - 1, projectId, projects)}
-    />);
-  else if (id === 'title')
-    return (
-      <Tooltip title={utils.getPriorityString(priority) + " priority"} arrow>
-        <CircleIcon sx={{
-          color: utils.getPriorityColor(priority),
-          marginRight: 1
-        }} fontSize="inherit" />
-      </Tooltip>
-    );
-  else
-    return undefined;
-};
+const getTableExtras =
+  (id, closed, number, projectIndex, projects, priority) => {
+    if (id === 'number')
+      return (<Checkbox
+        disabled={closed} checked={closed}
+        onClick={() => toggleClosed(number - 1, projectIndex, projects)}
+      />);
+    else if (id === 'title')
+      return (
+        <Tooltip title={utils.getPriorityString(priority) + " priority"} arrow>
+          <CircleIcon sx={{
+            color: utils.getPriorityColor(priority),
+            marginRight: 1
+          }} fontSize="inherit" />
+        </Tooltip>
+      );
+    else
+      return undefined;
+  };
 
 const handleTableValues = (id, value, width) => {
   if (id === 'title' && value.length > (width - 100)) {
@@ -129,7 +136,7 @@ const IssuesTable = ({ projects, rows, page, rowsPerPage, showClosed }) =>
                   const closed = row['closed'] === undefined ?
                     false : row['closed'];
                   const priority = row['priority'];
-                  const projectId = row['pId'];
+                  const projectIndex = row['pIndex'];
                   if (showClosed || !closed)
                     return (
                       <TableCell key={column.id} align={column.align}>
@@ -140,7 +147,7 @@ const IssuesTable = ({ projects, rows, page, rowsPerPage, showClosed }) =>
                           flexWrap: 'wrap'
                         }}>
                           {getTableExtras(column.id, closed, row['number'],
-                            projectId, projects, priority)}
+                            projectIndex, projects, priority)}
                           {column.format && typeof value === 'number'
                             ? column.format(value)
                             : value}
