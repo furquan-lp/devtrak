@@ -11,5 +11,8 @@ scaled for larger projects.
 ## Features (Work-In-Progress):
 * Slick, accessible and responsive [Material UI](https://mui.com/) interface
 * Flat issue tree to allow access to all issues at once
-* Simple token-based [auth0](https://auth0.com/) authentication
+
+## TODO:
 * MongoDB JSON database in the backend to manage and store the data
+* Simple token-based [auth0](https://auth0.com/) authentication
+* Backend hosted on Heroku
