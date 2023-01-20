@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48mm"
+   height="48mm"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="devtrak.svg"
+   inkscape:export-filename="devtrak.png"
+   inkscape:export-xdpi="33.866665"
+   inkscape:export-ydpi="33.866665"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#1d3557"
+     bordercolor="#457b9d"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="4"
+     inkscape:cx="65.125"
+     inkscape:cy="90.125"
+     inkscape:window-width="1920"
+     inkscape:window-height="1053"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#1d3557;fill-opacity:1;stroke:#e63946;stroke-width:0.658464;stroke-dasharray:none;stroke-opacity:1"
+       id="rect355"
+       width="47.340782"
+       height="47.329739"
+       x="0.32960892"
+       y="0.33513069" />
+    <rect
+       style="fill:#a8dadc;fill-opacity:0;stroke-width:0.264583"
+       id="rect9312"
+       width="38.31094"
+       height="51.416225"
+       x="-0.26175198"
+       y="5.0831089" />
+    <text
+       xml:space="preserve"
+       style="font-size:19.7556px;line-height:1.25;font-family:'Recursive Mono Casual Static';-inkscape-font-specification:'Recursive Mono Casual Static';fill:#ff0000;stroke-width:0.264583"
+       x="6.1904516"
+       y="23.496279"
+       id="text2605"><tspan
+         sodipodi:role="line"
+         style="font-size:19.7556px;fill:#e63946;fill-opacity:1;stroke-width:0.264583"
+         x="6.1904516"
+         y="23.496279"
+         id="tspan2607">dev</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12.7px;line-height:1.25;font-family:'Recursive Mono Casual Static';-inkscape-font-specification:'Recursive Mono Casual Static';stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="1.0828394"
+       y="37.819225"
+       id="text6246"><tspan
+         sodipodi:role="line"
+         id="tspan6244"
+         style="font-size:12.7px;fill:#a8dadc;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="1.0828394"
+         y="37.819225">/trak/</tspan></text>
+  </g>
+</svg>
