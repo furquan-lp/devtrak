@@ -6,9 +6,9 @@ import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <div class="bg"></div>
-    <div class="bg bg2"></div>
-    <div class="bg bg3"></div>
+    <div className="bg"></div>
+    <div className="bg bg2"></div>
+    <div className="bg bg3"></div>
     <App />
   </React.StrictMode>
 );
